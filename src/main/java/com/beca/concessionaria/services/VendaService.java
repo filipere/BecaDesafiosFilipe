@@ -1,6 +1,9 @@
 package com.beca.concessionaria.services;
 
+import com.beca.concessionaria.dminios.Carro;
 import com.beca.concessionaria.dminios.Venda;
+import com.beca.concessionaria.repositories.VendaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,43 +12,37 @@ import java.util.List;
 @Service
 public class VendaService {
 
+    @Autowired
+    VendaRepository vendaRepository;
+
     public Venda adicionar(Venda venda) {
-        System.out.println(venda);
-        venda.setId(1L);
+        Venda SalvandoVenda = vendaRepository.save(venda);
 
-        System.out.println("Venda adicionada com sucesso!");
-
-        return venda;
+        return SalvandoVenda;
     }
 
     public Venda atualizar(Venda venda, Long id) {
-        venda.setId(id);
+        Venda vendaObter = this.obter(id);
+        venda.setId(venda.getId());
 
-        return venda;
+        vendaRepository.save(vendaObter);
+
+        return vendaObter;
     }
 
     public Venda obter(Long id) {
-        Venda venda = new Venda();
-        venda.setId(id);
+        Venda venda = vendaRepository.findById(id).get();
 
         return venda;
     }
 
     public void excluir(Long id) {
-        //
+        vendaRepository.deleteById(id);
     }
-    @GetMapping(path= "/vendas")
+    @GetMapping("/vendas")
     public List<Venda> mostrar() {
-        Venda venda1 = new Venda();
-        venda1.setId(1L);
-        venda1.setPreco(500.000);
-        venda1.setQuantidade(1);
+        List<Venda> ListaVenda = vendaRepository.findAll();
 
-        Venda venda2 = new Venda();
-        venda2.setId(2L);
-        venda2.setPreco(300.000);
-        venda2.setQuantidade(1);
-
-        return List.of(venda1, venda2);
+        return ListaVenda;
     }
 }

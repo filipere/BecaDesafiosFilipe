@@ -1,52 +1,50 @@
 package com.beca.concessionaria.services;
 
+import com.beca.concessionaria.dminios.Carro;
 import com.beca.concessionaria.dminios.Cliente;
+import com.beca.concessionaria.dminios.Venda;
+import com.beca.concessionaria.repositories.ClienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
 @Service
 public class ClienteService {
 
+    @Autowired
+    ClienteRepository clienteRepository;
+
     public Cliente adicionar(Cliente cliente) {
-        System.out.println(cliente);
-        cliente.setId(1L);
+        Cliente SalvandoCliente = clienteRepository.save(cliente);
 
-        System.out.println("Cliente adicionado com sucesso!");
-
-        return cliente;
+        return SalvandoCliente ;
     }
 
     public Cliente atualizar(Cliente cliente, Long id) {
-        cliente.setId(id);
+        Cliente clienteObter = this.obter(id);
+        cliente.setNome(cliente.getNome());
 
-        return cliente;
+        clienteRepository.save(clienteObter);
+
+        return clienteObter;
     }
 
     public Cliente obter(Long id) {
-        Cliente cliente = new Cliente();
-        cliente.setId(id);
+        Cliente cliente = clienteRepository.findById(id).get();
 
         return cliente;
     }
 
     public void excluir(Long id) {
-        //
+        clienteRepository.deleteById(id);
     }
 
+    @GetMapping("/clientes")
     public List<Cliente> mostrar() {
-        Cliente cliente1 = new Cliente();
-        cliente1.setId(1L);
-        cliente1.setNome("Ana Luiza");
-        cliente1.setEmail("analu@email.com");
-        cliente1.setTelefone(88-95555-5555);
+        List<Cliente> ListaClientes = clienteRepository.findAll();
 
-        Cliente cliente2 = new Cliente();
-        cliente2.setId(2L);
-        cliente2.setNome("JoÃ£o Pedro");
-        cliente2.setEmail("jpedro@email.com");
-        cliente2.setTelefone(99-91111-1111);
-
-        return List.of(cliente1, cliente2);
+        return ListaClientes;
     }
 }

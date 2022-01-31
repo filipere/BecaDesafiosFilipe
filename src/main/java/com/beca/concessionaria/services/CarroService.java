@@ -1,6 +1,9 @@
 package com.beca.concessionaria.services;
 
 import com.beca.concessionaria.dminios.Carro;
+import com.beca.concessionaria.dminios.Cliente;
+import com.beca.concessionaria.repositories.CarroRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,48 +12,39 @@ import java.util.List;
 @Service
 public class CarroService {
 
+    @Autowired
+    private CarroRepository carroRepository;
+
     public Carro adicionar(Carro carro) {
         System.out.println(carro);
-        carro.setId(1L);
+        Carro SalvandoCarro = carroRepository.save(carro);
 
-        System.out.println("Carro adicionado com sucesso!");
-
-        return carro;
+        return SalvandoCarro;
     }
 
     public Carro atualizar(Carro carro, Long id) {
-        carro.setId(id);
+        Carro carroObter = this.obter(id);
+        carro.setMarca(carro.getMarca());
+
+        carroRepository.save(carroObter);
+
+        return carroObter;
+    }
+
+    public Carro obter(Long id) {
+        Carro carro = carroRepository.findById(id).get();
 
         return carro;
     }
 
-    public Carro obter(Long id) {
-        Carro carro1 = new Carro();
-        carro1.setId(id);
-
-        return carro1;
-    }
-
     public void excluir(Long id) {
-        //
+        carroRepository.deleteById(id);
     }
 
     @GetMapping
     public List<Carro> mostrar() {
-        Carro carro1 = new Carro();
-        carro1.setId(1L);
-        carro1.setMarca("Ferrari");
-        carro1.setModelo("488 GTB");
-        carro1.setCor("Vermelho");
-        carro1.setAno(2015);
+        List<Carro> ListaCarros = carroRepository.findAll();
 
-        Carro carro2 = new Carro();
-        carro2.setId(2L);
-        carro2.setMarca("Mercedes-Benz");
-        carro2.setModelo("EQC");
-        carro2.setCor("Branco");
-        carro2.setAno(2020);
-
-        return List.of(carro1, carro2);
+        return ListaCarros;
     }
 }

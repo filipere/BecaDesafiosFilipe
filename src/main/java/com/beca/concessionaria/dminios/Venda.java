@@ -1,10 +1,16 @@
 package com.beca.concessionaria.dminios;
 
+import javax.persistence.*;
+
+@Entity
 public class Venda {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double preco;
     private Integer quantidade;
+    @OneToOne
     private Carro Carro;
 
     public Venda() {
