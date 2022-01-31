@@ -1,7 +1,8 @@
 package com.beca.concessionaria.controllers;
 
 import com.beca.concessionaria.dminios.Cliente;
-import com.beca.concessionaria.dminios.Venda;
+import com.beca.concessionaria.services.ClienteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,51 +12,42 @@ import java.util.List;
 @RequestMapping( "/cliente")
 public class ClienteController {
 
+    @Autowired
+    private ClienteService clienteService;
+
     @PostMapping
     public ResponseEntity<Cliente> adicionar(Cliente cliente) {
-        System.out.println(cliente);
-        cliente.setId(1L);
+        Cliente criar = clienteService.adicionar(cliente);
 
-        System.out.println("Carro adicionado com sucesso!");
-
-        return ResponseEntity.created(null).body(cliente);
+        return ResponseEntity.created(null).body(criar);
     }
 
     @PatchMapping("/{id}")
     public  ResponseEntity<Cliente> atualizar(@RequestBody Cliente cliente, @PathVariable Long id) {
-        cliente.setId(id);
 
-        return ResponseEntity.ok(cliente);
+        Cliente atualizar = clienteService.atualizar(cliente, id);
+
+        return ResponseEntity.ok(atualizar);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> obter(@PathVariable Long id) {
+        Cliente obter = clienteService.obter(id);
+
+        return ResponseEntity.ok(obter);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> excluir(@PathVariable Long id) {
+        clienteService.excluir(id);
 
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity<Cliente> obter(@PathVariable Long id) {
-        Cliente cliente = new Cliente();
-        cliente.setId(id);
-
-        return ResponseEntity.ok(cliente);
-    }
-
-    @GetMapping("/{id}")
     public ResponseEntity<List<Cliente>> mostrar() {
-        Cliente cliente1 = new Cliente();
-        cliente1.setId(1L);
-        cliente1.setNome("Ana Luiza");
-        cliente1.setEmail("analu@email.com");
-        cliente1.setTelefone(88-95555-5555);
+        List<Cliente> mostrar = clienteService.mostrar();
 
-        Cliente cliente2 = new Cliente();
-        cliente2.setId(2L);
-        cliente2.setNome("João Pedro");
-        cliente2.setEmail("jpedro@email.com");
-        cliente2.setTelefone(99-91111-1111);
-
-        return ResponseEntity.ok(List.of(cliente1, cliente2));
+        return ResponseEntity.ok(mostrar);
     }
 }

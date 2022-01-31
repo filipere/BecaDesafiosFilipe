@@ -1,6 +1,8 @@
 package com.beca.concessionaria.controllers;
 
 import com.beca.concessionaria.dminios.Venda;
+import com.beca.concessionaria.services.VendaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,48 +12,41 @@ import java.util.List;
 @RequestMapping( "/venda")
 public class VendaController {
 
+    @Autowired
+    private VendaService vendaService;
+
     @PostMapping
     public ResponseEntity<Venda> adicionar(Venda venda) {
-        System.out.println(venda);
-        venda.setId(1L);
+        Venda criar = vendaService.adicionar(venda);
 
-        System.out.println("Nova venda!");
-
-        return ResponseEntity.created(null).body(venda);
+        return ResponseEntity.created(null).body(criar);
     }
 
     @PatchMapping("/{id}")
     public  ResponseEntity<Venda> atualizar(@RequestBody Venda venda, @PathVariable Long id) {
-        venda.setId(id);
+        Venda atualizar = vendaService.atualizar(venda, id);
 
-        return ResponseEntity.ok(venda);
+        return ResponseEntity.ok(atualizar);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> excluir(@PathVariable Long id) {
+        vendaService.excluir(id);
 
         return ResponseEntity.noContent().build();
     }
-    @GetMapping
-    public ResponseEntity<Venda> obter(@PathVariable Long id) {
-        Venda venda = new Venda();
-        venda.setId(id);
 
-        return ResponseEntity.ok(venda);
+    @GetMapping
+    public ResponseEntity<Venda> obter(Long id) {
+        Venda obter= vendaService.obter(id);
+
+        return ResponseEntity.ok(obter);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Venda>> mostrar() {
-        Venda venda1 = new Venda();
-        venda1.setId(1L);
-        venda1.setPreco(500.000);
-        venda1.setQuantidade(1);
+    @GetMapping("/{listar}")
+    public ResponseEntity<List<Venda>> listar() {
+        List<Venda> mostrar = vendaService.mostrar();
 
-        Venda venda2 = new Venda();
-        venda2.setId(2L);
-        venda2.setPreco(300.000);
-        venda2.setQuantidade(1);
-
-        return ResponseEntity.ok(List.of(venda1, venda2));
+        return ResponseEntity.ok(mostrar);
     }
 }

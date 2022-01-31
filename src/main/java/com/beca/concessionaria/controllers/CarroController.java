@@ -1,63 +1,52 @@
 package com.beca.concessionaria.controllers;
 
 import com.beca.concessionaria.dminios.Carro;
+import com.beca.concessionaria.services.CarroService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping( "/carro")
 public class CarroController {
 
+    @Autowired
+    private CarroService carroService;
+
     @PostMapping
-    public ResponseEntity<Carro> adicionarCarro(Carro carro) {
-        System.out.println(carro);
-        carro.setId(1L);
+    public ResponseEntity<Carro> adicionar(Carro carro) {
+        Carro criar = carroService.adicionar(carro);
 
-        System.out.println("Carro adicionado com sucesso!");
-
-        return ResponseEntity.created(null).body(carro);
+        return ResponseEntity.created(null).body(criar);
     }
 
     @PatchMapping("/{id}")
     public  ResponseEntity<Carro> atualizar(@RequestBody Carro carro, @PathVariable Long id) {
-        carro.setId(id);
+        Carro atualizar = carroService.atualizar(carro, id);
 
-        return ResponseEntity.ok(carro);
+        return ResponseEntity.ok(atualizar);
     }
 
-    @GetMapping
-    public ResponseEntity<Carro> obter(Long id) {
-        Carro carro = new Carro();
-        carro.setId(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Carro> obter(@PathVariable Long id) {
+        Carro obter = carroService.obter(id);
 
-        return ResponseEntity.ok(carro);
+        return ResponseEntity.ok(obter);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> excluir(@PathVariable Long id) {
+        carroService.excluir(id);
 
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<java.util.List<Carro>> mostrar() {
-        Carro carro1 = new Carro();
-        carro1.setId(1L);
-        carro1.setMarca("Ferrari");
-        carro1.setModelo("488 GTB");
-        carro1.setCor("Vermelho");
-        carro1.setAno(2015);
+    @GetMapping
+    public ResponseEntity<List<Carro>> mostrar() {
+        List<Carro> mostrar = carroService.mostrar();
 
-        Carro carro2 = new Carro();
-        carro2.setId(2L);
-        carro2.setMarca("Mercedes-Benz");
-        carro2.setModelo("EQC");
-        carro2.setCor("Branco");
-        carro2.setAno(2020);
-
-        return ResponseEntity.ok(List.of(carro1, carro2));
+        return ResponseEntity.ok(mostrar);
     }
 }
