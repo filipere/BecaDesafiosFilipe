@@ -1,11 +1,9 @@
 package com.beca.concessionaria.controllers;
 
 import com.beca.concessionaria.dminios.Carro;
-import com.beca.concessionaria.dminios.Cliente;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.List;
 
 
@@ -30,20 +28,21 @@ public class CarroController {
         return ResponseEntity.ok(carro);
     }
 
-    public ResponseEntity<Carro> obter(@PathVariable Long id) {
+    @GetMapping
+    public ResponseEntity<Carro> obter(Long id) {
         Carro carro = new Carro();
         carro.setId(id);
 
         return ResponseEntity.ok(carro);
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> excluirCarro(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> excluir(@PathVariable Long id) {
 
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<java.util.List<Carro>> mostrar() {
         Carro carro1 = new Carro();
         carro1.setId(1L);

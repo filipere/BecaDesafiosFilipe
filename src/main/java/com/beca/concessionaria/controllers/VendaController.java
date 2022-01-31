@@ -27,7 +27,7 @@ public class VendaController {
         return ResponseEntity.ok(venda);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> excluir(@PathVariable Long id) {
 
         return ResponseEntity.noContent().build();
@@ -40,7 +40,7 @@ public class VendaController {
         return ResponseEntity.ok(venda);
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<List<Venda>> mostrar() {
         Venda venda1 = new Venda();
         venda1.setId(1L);

@@ -1,6 +1,7 @@
 package com.beca.concessionaria.controllers;
 
 import com.beca.concessionaria.dminios.Cliente;
+import com.beca.concessionaria.dminios.Venda;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class ClienteController {
 
     @PostMapping
-    public ResponseEntity<Cliente> adicionarCliente(Cliente cliente) {
+    public ResponseEntity<Cliente> adicionar(Cliente cliente) {
         System.out.println(cliente);
         cliente.setId(1L);
 
@@ -27,13 +28,21 @@ public class ClienteController {
         return ResponseEntity.ok(cliente);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> excluir(@PathVariable Long id) {
 
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
+    public ResponseEntity<Cliente> obter(@PathVariable Long id) {
+        Cliente cliente = new Cliente();
+        cliente.setId(id);
+
+        return ResponseEntity.ok(cliente);
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<List<Cliente>> mostrar() {
         Cliente cliente1 = new Cliente();
         cliente1.setId(1L);
