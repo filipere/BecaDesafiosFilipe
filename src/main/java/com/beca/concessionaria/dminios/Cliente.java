@@ -1,4 +1,4 @@
-package com.beca.concessionaria.dominios;
+package com.beca.concessionaria.dminios;
 
 public class Cliente {
 
