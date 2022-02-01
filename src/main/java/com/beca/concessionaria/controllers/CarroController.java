@@ -16,7 +16,7 @@ public class CarroController {
     private CarroService carroService;
 
     @PostMapping
-    public ResponseEntity<Carro> adicionar(Carro carro) {
+    public ResponseEntity<Carro> adicionar(@RequestBody Carro carro) {
         Carro criar = carroService.adicionar(carro);
 
         return ResponseEntity.created(null).body(criar);

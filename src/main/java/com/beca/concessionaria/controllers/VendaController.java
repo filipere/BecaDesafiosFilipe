@@ -16,7 +16,7 @@ public class VendaController {
     private VendaService vendaService;
 
     @PostMapping
-    public ResponseEntity<Venda> adicionar(Venda venda) {
+    public ResponseEntity<Venda> adicionar(@RequestBody Venda venda) {
         Venda criar = vendaService.adicionar(venda);
 
         return ResponseEntity.created(null).body(criar);
