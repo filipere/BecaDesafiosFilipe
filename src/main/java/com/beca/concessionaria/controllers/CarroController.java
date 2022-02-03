@@ -43,7 +43,7 @@ public class CarroController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
+    @GetMapping("/{mostrar}")
     public ResponseEntity<List<Carro>> mostrar() {
         List<Carro> mostrar = carroService.mostrar();
 

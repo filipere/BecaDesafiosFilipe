@@ -1,6 +1,8 @@
 package com.beca.concessionaria.controllers;
 
 import com.beca.concessionaria.dminios.Venda;
+import com.beca.concessionaria.dtos.requests.PostClienteRequest;
+import com.beca.concessionaria.dtos.responses.PostClienteResponse;
 import com.beca.concessionaria.services.VendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +18,13 @@ public class VendaController {
     private VendaService vendaService;
 
     @PostMapping
-    public ResponseEntity<Venda> adicionar(@RequestBody Venda venda) {
-        Venda criar = vendaService.adicionar(venda);
+    public ResponseEntity<PostClienteResponse> adicionar(@RequestBody PostClienteRequest postClienteRequest) {
 
-        return ResponseEntity.created(null).body(criar);
+        PostClienteResponse postClienteResponse = vendaService.adicionar(postClienteRequest);
+
+        return ResponseEntity.created(null).body(postClienteResponse);
     }
+
 
     @PatchMapping("/{id}")
     public  ResponseEntity<Venda> atualizar(@RequestBody Venda venda, @PathVariable Long id) {

@@ -1,6 +1,8 @@
 package com.beca.concessionaria.controllers;
 
 import com.beca.concessionaria.dminios.Cliente;
+import com.beca.concessionaria.dtos.requests.PostClienteRequest;
+import com.beca.concessionaria.dtos.responses.PostClienteResponse;
 import com.beca.concessionaria.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,12 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @PostMapping
-    public ResponseEntity<Cliente> adicionar(@RequestBody Cliente cliente) {
-        Cliente criar = clienteService.adicionar(cliente);
+    public ResponseEntity<PostClienteResponse> adicionar(
+            @RequestBody PostClienteRequest postClienteRequest) {
 
-        return ResponseEntity.created(null).body(criar);
+        PostClienteResponse postClienteResponse = clienteService.adicionar(postClienteRequest);
+
+        return ResponseEntity.created(null).body(postClienteResponse);
     }
 
     @PatchMapping("/{id}")
@@ -44,7 +48,7 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
+    @GetMapping("/{mostrar}")
     public ResponseEntity<List<Cliente>> mostrar() {
         List<Cliente> mostrar = clienteService.mostrar();
 

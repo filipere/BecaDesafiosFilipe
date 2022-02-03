@@ -1,5 +1,7 @@
 package com.beca.concessionaria.dminios;
 
+import com.beca.concessionaria.dtos.requests.PostClienteRequest;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +16,7 @@ public class Cliente {
     private String nome;
     private String email;
     private Integer telefone;
+    private Venda venda;
 
     public Cliente() {
     }
@@ -48,5 +51,13 @@ public class Cliente {
 
     public void setTelefone(Integer telefone) {
         this.telefone = telefone;
+    }
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
     }
 }
