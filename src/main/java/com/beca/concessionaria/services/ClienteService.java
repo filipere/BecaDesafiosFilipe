@@ -4,6 +4,7 @@ import com.beca.concessionaria.dminios.Cliente;
 import com.beca.concessionaria.dtos.requests.PostClienteRequest;
 import com.beca.concessionaria.dtos.responses.PostClienteResponse;
 import com.beca.concessionaria.repositories.ClienteRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
-    public PostClienteResponse adicionar(PostClienteRequest postVendaRequest) {
+    public PostClienteResponse adicionar(@NotNull PostClienteRequest postVendaRequest) {
 
         Cliente vendaObtida = clienteService.obter(postVendaRequest.getIdVenda());
 

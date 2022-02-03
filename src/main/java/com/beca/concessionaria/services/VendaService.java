@@ -1,11 +1,9 @@
 package com.beca.concessionaria.services;
 
-import com.beca.concessionaria.dminios.Carro;
 import com.beca.concessionaria.dminios.Cliente;
 import com.beca.concessionaria.dminios.Venda;
 import com.beca.concessionaria.dtos.requests.PostClienteRequest;
 import com.beca.concessionaria.dtos.responses.PostClienteResponse;
-import com.beca.concessionaria.repositories.CarroRepository;
 import com.beca.concessionaria.repositories.ClienteRepository;
 import com.beca.concessionaria.repositories.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
