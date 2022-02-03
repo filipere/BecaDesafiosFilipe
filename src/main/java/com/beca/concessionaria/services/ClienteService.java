@@ -1,8 +1,8 @@
 package com.beca.concessionaria.services;
 
-import com.beca.concessionaria.dminios.Carro;
 import com.beca.concessionaria.dminios.Cliente;
-import com.beca.concessionaria.dminios.Venda;
+import com.beca.concessionaria.dtos.requests.PostClienteRequest;
+import com.beca.concessionaria.dtos.responses.PostClienteResponse;
 import com.beca.concessionaria.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,19 @@ import java.util.List;
 public class ClienteService {
 
     @Autowired
+    private ClienteService clienteService;
+
+    @Autowired
     ClienteRepository clienteRepository;
 
-    public Cliente adicionar(Cliente cliente) {
-        Cliente SalvandoCliente = clienteRepository.save(cliente);
+    public PostClienteResponse adicionar(PostClienteRequest postVendaRequest) {
 
-        return SalvandoCliente ;
+        Cliente vendaObtida = clienteService.obter(postVendaRequest.getIdVenda());
+
+        PostClienteResponse postClienteResponse = new PostClienteResponse();
+        postClienteResponse.setIdVenda(vendaObtida.getId());
+
+        return postClienteResponse;
     }
 
     public Cliente atualizar(Cliente cliente, Long id) {
