@@ -2,6 +2,7 @@ package com.beca.concessionaria.services;
 
 import com.beca.concessionaria.dminios.Cliente;
 import com.beca.concessionaria.dtos.requests.PostClienteRequest;
+import com.beca.concessionaria.dtos.responses.GetClienteObterResponse;
 import com.beca.concessionaria.dtos.responses.PostClienteResponse;
 import com.beca.concessionaria.repositories.ClienteRepository;
 import org.jetbrains.annotations.NotNull;
@@ -15,14 +16,11 @@ import java.util.List;
 public class ClienteService {
 
     @Autowired
-    private ClienteService clienteService;
-
-    @Autowired
     ClienteRepository clienteRepository;
 
     public PostClienteResponse adicionar(@NotNull PostClienteRequest postVendaRequest) {
 
-        Cliente vendaObtida = clienteService.obter(postVendaRequest.getIdVenda());
+        Cliente vendaObtida = clienteRepository.getById(postVendaRequest.getIdVenda());
 
         PostClienteResponse postClienteResponse = new PostClienteResponse();
         postClienteResponse.setIdVenda(vendaObtida.getId());
@@ -31,7 +29,7 @@ public class ClienteService {
     }
 
     public Cliente atualizar(Cliente cliente, Long id) {
-        Cliente clienteObter = this.obter(id);
+        Cliente clienteObter = clienteRepository.getById(id);
         cliente.setNome(cliente.getNome());
 
         clienteRepository.save(clienteObter);
@@ -39,10 +37,14 @@ public class ClienteService {
         return clienteObter;
     }
 
-    public Cliente obter(Long id) {
+    public GetClienteObterResponse obter(Long id) {
         Cliente cliente = clienteRepository.findById(id).get();
 
-        return cliente;
+        GetClienteObterResponse getClienteObterResponse = new GetClienteObterResponse();
+        getClienteObterResponse.setId(cliente.getId());
+        getClienteObterResponse.setNome(cliente.getNome());
+
+        return getClienteObterResponse;
     }
 
     public void excluir(Long id) {

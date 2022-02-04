@@ -2,6 +2,7 @@ package com.beca.concessionaria.controllers;
 
 import com.beca.concessionaria.dminios.Cliente;
 import com.beca.concessionaria.dtos.requests.PostClienteRequest;
+import com.beca.concessionaria.dtos.responses.GetClienteObterResponse;
 import com.beca.concessionaria.dtos.responses.PostClienteResponse;
 import com.beca.concessionaria.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @PostMapping
-    public ResponseEntity<PostClienteResponse> adicionar(
+    public ResponseEntity<PostClienteResponse> adicionar (
             @RequestBody PostClienteRequest postClienteRequest) {
 
         PostClienteResponse postClienteResponse = clienteService.adicionar(postClienteRequest);
@@ -35,10 +36,10 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> obter(@PathVariable Long id) {
-        Cliente obter = clienteService.obter(id);
+    public ResponseEntity<GetClienteObterResponse> obter(@PathVariable Long id) {
+        GetClienteObterResponse getClienteObterResponse = clienteService.obter(id);
 
-        return ResponseEntity.ok(obter);
+        return ResponseEntity.ok(getClienteObterResponse);
     }
 
     @DeleteMapping("/{id}")

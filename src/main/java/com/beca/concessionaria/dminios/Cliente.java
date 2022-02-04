@@ -2,10 +2,7 @@ package com.beca.concessionaria.dminios;
 
 import com.beca.concessionaria.dtos.requests.PostClienteRequest;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Cliente {
@@ -16,6 +13,7 @@ public class Cliente {
     private String nome;
     private String email;
     private Integer telefone;
+    @OneToOne
     private Venda venda;
 
     public Cliente() {

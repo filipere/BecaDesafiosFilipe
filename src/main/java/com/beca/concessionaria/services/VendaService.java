@@ -21,12 +21,9 @@ public class VendaService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    @Autowired
-    private VendaService vendaService;
-
     public PostClienteResponse adicionar(PostClienteRequest postClienteRequest) {
 
-        Venda vendaObtida = vendaService.obter(postClienteRequest.getIdVenda());
+        Venda vendaObtida = vendaRepository.getById(postClienteRequest.getIdVenda());
 
         Cliente cliente = new Cliente();
         cliente.setNome(postClienteRequest.getNome());

@@ -41,7 +41,6 @@ public class CarroService {
         carroRepository.deleteById(id);
     }
 
-    @GetMapping
     public List<Carro> mostrar() {
         List<Carro> ListaCarros = carroRepository.findAll();
 
