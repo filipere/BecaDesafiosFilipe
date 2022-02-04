@@ -1,23 +1,14 @@
 package com.beca.concessionaria.dtos.responses;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class PostClienteResponse {
 
     private String nome;
     private Long idVenda;
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Long getIdVenda() {
-        return idVenda;
-    }
-
-    public void setIdVenda(Long idVenda) {
-        this.idVenda = idVenda;
-    }
 }

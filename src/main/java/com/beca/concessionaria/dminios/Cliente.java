@@ -1,9 +1,14 @@
 package com.beca.concessionaria.dminios;
 
-import com.beca.concessionaria.dtos.requests.PostClienteRequest;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
+@Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class Cliente {
 
@@ -15,47 +20,4 @@ public class Cliente {
     private Integer telefone;
     @OneToOne
     private Venda venda;
-
-    public Cliente() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Integer getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(Integer telefone) {
-        this.telefone = telefone;
-    }
-
-    public Venda getVenda() {
-        return venda;
-    }
-
-    public void setVenda(Venda venda) {
-        this.venda = venda;
-    }
 }
