@@ -2,63 +2,80 @@ package com.beca.concessionaria.services;
 
 import com.beca.concessionaria.dminios.Cliente;
 import com.beca.concessionaria.dminios.Venda;
-import com.beca.concessionaria.dtos.requests.PostClienteRequest;
+import com.beca.concessionaria.dtos.requests.PostVendaRequest;
 import com.beca.concessionaria.dtos.responses.PostClienteResponse;
+import com.beca.concessionaria.dtos.responses.PostVendaResponse;
+import com.beca.concessionaria.mappers.MapperPostVendaRequestToVenda;
+import com.beca.concessionaria.mappers.MapperVendaAtualizar;
+import com.beca.concessionaria.mappers.MapperVendaToVendaResponse;
 import com.beca.concessionaria.repositories.ClienteRepository;
 import com.beca.concessionaria.repositories.VendaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class VendaService {
 
-    @Autowired
-    private VendaRepository vendaRepository;
+    private final VendaRepository vendaRepository;
+    private final ClienteRepository clienteRepository;
+    private final MapperPostVendaRequestToVenda mapperPostVendaRequestToVenda;
+    private final MapperVendaToVendaResponse mapperVendaToVendaResponse;
+    private final MapperVendaAtualizar mapperAtualizar;
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+    public PostVendaResponse adicionar(PostVendaRequest postVendaRequest) {
 
-    public PostClienteResponse adicionar(PostClienteRequest postClienteRequest) {
+        Venda vendaObtida = vendaRepository.getById(postVendaRequest.getId());
 
-        Venda vendaObtida = vendaRepository.getById(postClienteRequest.getIdVenda());
+        Venda venda = mapperPostVendaRequestToVenda.toModel(postVendaRequest);
 
         Cliente cliente = new Cliente();
-        cliente.setNome(postClienteRequest.getNome());
+        cliente.setId(postVendaRequest.getId());
         cliente.setVenda(vendaObtida);
 
-        Cliente salvandoCliente = clienteRepository.save(cliente);
+        Cliente salvando = clienteRepository.save(cliente);
 
-        PostClienteResponse postClienteResponse = new PostClienteResponse();
-        postClienteResponse.setIdVenda(salvandoCliente.getId());
+        PostVendaResponse vendaResponse = mapperVendaToVendaResponse.toResponse(venda);
 
-        return postClienteResponse;
+        PostVendaResponse postVendaResponse = new PostVendaResponse();
+        postVendaResponse.setId(salvando.getId());
+
+        return vendaResponse;
     }
 
-    public Venda atualizar(Venda venda, Long id) {
-        Venda vendaObter = this.obter(id);
-        venda.setId(venda.getId());
+    public PostVendaResponse atualizar(PostVendaRequest postVendaRequest, Long id) {
+        Venda vendaObter = vendaRepository.getById(id);
+
+        mapperAtualizar.atualizar(postVendaRequest, vendaObter);
 
         vendaRepository.save(vendaObter);
 
-        return vendaObter;
+        PostVendaResponse postVendaResponse = mapperVendaToVendaResponse.toResponse(vendaObter);
+
+        return postVendaResponse;
     }
 
-    public Venda obter(Long id) {
+    public PostVendaResponse obter(Long id) {
         Venda venda = vendaRepository.findById(id).get();
 
-        return venda;
+        return mapperVendaToVendaResponse.toResponse(venda);
     }
 
     public void excluir(Long id) {
         vendaRepository.deleteById(id);
+
     }
     @GetMapping("/vendas")
-    public List<Venda> mostrar() {
+    public List<PostVendaResponse> mostrar() {
         List<Venda> ListaVenda = vendaRepository.findAll();
 
-        return ListaVenda;
+        return ListaVenda.stream()
+                .map(mapperVendaToVendaResponse::toResponse)
+                .collect(Collectors
+                        .toList());
     }
 }

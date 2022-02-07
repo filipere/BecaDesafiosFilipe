@@ -1,21 +1,21 @@
 package com.beca.concessionaria.dminios;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 
 @Data
-@AllArgsConstructor
 @Entity
-@RequiredArgsConstructor
 public class Venda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NonNull
     private Long id;
+    @NonNull
     private Double preco;
+    @NonNull
     private Integer quantidade;
     @OneToOne
     private Carro Carro;

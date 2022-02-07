@@ -1,22 +1,20 @@
 package com.beca.concessionaria.controllers;
 
-import com.beca.concessionaria.dminios.Cliente;
 import com.beca.concessionaria.dtos.requests.PostClienteRequest;
-import com.beca.concessionaria.dtos.responses.GetClienteObterResponse;
 import com.beca.concessionaria.dtos.responses.PostClienteResponse;
 import com.beca.concessionaria.services.ClienteService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping( "/cliente")
 public class ClienteController {
 
-    @Autowired
-    private ClienteService clienteService;
+    private final ClienteService clienteService;
 
     @PostMapping
     public ResponseEntity<PostClienteResponse> adicionar (
@@ -28,18 +26,19 @@ public class ClienteController {
     }
 
     @PatchMapping("/{id}")
-    public  ResponseEntity<Cliente> atualizar(@RequestBody Cliente cliente, @PathVariable Long id) {
+    public  ResponseEntity<PostClienteResponse> atualizar(
+            @RequestBody PostClienteRequest postClienteRequest, @PathVariable Long id) {
 
-        Cliente atualizar = clienteService.atualizar(cliente, id);
+        PostClienteResponse atualizar = clienteService.atualizar(postClienteRequest, id);
 
         return ResponseEntity.ok(atualizar);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetClienteObterResponse> obter(@PathVariable Long id) {
-        GetClienteObterResponse getClienteObterResponse = clienteService.obter(id);
+    public ResponseEntity<PostClienteResponse> obter(@PathVariable Long id) {
+        PostClienteResponse postClienteResponse = clienteService.obter(id);
 
-        return ResponseEntity.ok(getClienteObterResponse);
+        return ResponseEntity.ok(postClienteResponse);
     }
 
     @DeleteMapping("/{id}")
@@ -50,8 +49,8 @@ public class ClienteController {
     }
 
     @GetMapping("/{mostrar}")
-    public ResponseEntity<List<Cliente>> mostrar() {
-        List<Cliente> mostrar = clienteService.mostrar();
+    public ResponseEntity<List<PostClienteResponse>> mostrar() {
+        List<PostClienteResponse> mostrar = clienteService.mostrar();
 
         return ResponseEntity.ok(mostrar);
     }

@@ -1,19 +1,17 @@
 package com.beca.concessionaria.services;
 
 import com.beca.concessionaria.dminios.Carro;
-import com.beca.concessionaria.dminios.Cliente;
 import com.beca.concessionaria.repositories.CarroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CarroService {
 
-    @Autowired
-    private CarroRepository carroRepository;
+    private final CarroRepository carroRepository;
 
     public Carro adicionar(Carro carro) {
         System.out.println(carro);
