@@ -1,47 +1,76 @@
 package com.beca.concessionaria.services;
 
 import com.beca.concessionaria.dminios.Carro;
+import com.beca.concessionaria.dtos.requests.PostCarroRequest;
+import com.beca.concessionaria.dtos.responses.PostCarroResponse;
+import com.beca.concessionaria.exceptions.ExceptionCarro;
+import com.beca.concessionaria.mappers.MapperCarroAtualizar;
+import com.beca.concessionaria.mappers.MapperCarroToCarroResponse;
+import com.beca.concessionaria.mappers.MapperPostCarroRequestToCarro;
+import com.beca.concessionaria.mappers.MapperPostCarroResponse;
 import com.beca.concessionaria.repositories.CarroRepository;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CarroService {
 
     private final CarroRepository carroRepository;
+    private final MapperPostCarroRequestToCarro mapperPostCarroRequestToCarro;
+    private final MapperPostCarroResponse mapperPostCarroResponse;
+    private  final MapperCarroToCarroResponse mapperCarroToCarroResponse;
+    private final MapperCarroAtualizar mapperCarroAtualizar;
 
-    public Carro adicionar(Carro carro) {
-        System.out.println(carro);
-        Carro SalvandoCarro = carroRepository.save(carro);
+    public PostCarroResponse adicionar(@NonNull PostCarroRequest postCarroRequest) {
+        Carro carro = mapperPostCarroRequestToCarro.toModel(postCarroRequest);
 
-        return SalvandoCarro;
+        carroRepository.save(carro);
+
+        if (carro == null || carro.getMarca().trim().equals("")) {
+            throw new ExceptionCarro("Campos invalidos! preencha corretamente.");
+        }
+
+        PostCarroResponse carroResponse = mapperPostCarroResponse.toResponse(carro);
+
+        return carroResponse;
     }
 
-    public Carro atualizar(Carro carro, Long id) {
-        Carro carroObter = this.obter(id);
-        carro.setMarca(carro.getMarca());
-
-        carroRepository.save(carroObter);
-
-        return carroObter;
-    }
-
-    public Carro obter(Long id) {
+    public PostCarroResponse atualizar(PostCarroRequest postCarroRequest, Long id) {
         Carro carro = carroRepository.findById(id).get();
 
-        return carro;
+        mapperCarroAtualizar.atualizar(postCarroRequest, carro);
+
+        carroRepository.save(carro);
+
+        if (carro == null || carro.getMarca().trim().equals("")) {
+            throw new ExceptionCarro("Invalido!");
+        }
+
+        return mapperCarroToCarroResponse.toResponse(carro);
+    }
+
+    public PostCarroResponse obter(Long id) {
+        Carro carro = carroRepository.findById(id).get();
+
+        return mapperCarroToCarroResponse.toResponse(carro);
     }
 
     public void excluir(Long id) {
+
         carroRepository.deleteById(id);
     }
 
-    public List<Carro> mostrar() {
-        List<Carro> ListaCarros = carroRepository.findAll();
+    public List<PostCarroResponse> mostrar() {
+        List<Carro> listaCarro = carroRepository.findAll();
 
-        return ListaCarros;
+        return listaCarro.stream()
+                .map(mapperCarroToCarroResponse::toResponse)
+                .collect(Collectors
+                        .toList());
     }
 }
