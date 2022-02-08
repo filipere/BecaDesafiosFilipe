@@ -3,7 +3,6 @@ package com.beca.concessionaria.services;
 import com.beca.concessionaria.dminios.Carro;
 import com.beca.concessionaria.dtos.requests.PostCarroRequest;
 import com.beca.concessionaria.dtos.responses.PostCarroResponse;
-import com.beca.concessionaria.exceptions.ExceptionCarro;
 import com.beca.concessionaria.mappers.MapperCarroAtualizar;
 import com.beca.concessionaria.mappers.MapperCarroToCarroResponse;
 import com.beca.concessionaria.mappers.MapperPostCarroRequestToCarro;
@@ -31,10 +30,6 @@ public class CarroService {
 
         carroRepository.save(carro);
 
-        if (carro == null || carro.getMarca().trim().equals("")) {
-            throw new ExceptionCarro("Campos invalidos! preencha corretamente.");
-        }
-
         PostCarroResponse carroResponse = mapperPostCarroResponse.toResponse(carro);
 
         return carroResponse;
@@ -46,10 +41,6 @@ public class CarroService {
         mapperCarroAtualizar.atualizar(postCarroRequest, carro);
 
         carroRepository.save(carro);
-
-        if (carro == null || carro.getMarca().trim().equals("")) {
-            throw new ExceptionCarro("Invalido!");
-        }
 
         return mapperCarroToCarroResponse.toResponse(carro);
     }

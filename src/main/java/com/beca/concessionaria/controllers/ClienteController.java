@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,7 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<PostClienteResponse> adicionar (
-            @RequestBody PostClienteRequest postClienteRequest) {
+            @RequestBody @Valid PostClienteRequest postClienteRequest) {
 
         PostClienteResponse postClienteResponse = clienteService.adicionar(postClienteRequest);
 

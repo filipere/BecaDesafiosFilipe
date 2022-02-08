@@ -3,7 +3,6 @@ package com.beca.concessionaria.services;
 import com.beca.concessionaria.dminios.Cliente;
 import com.beca.concessionaria.dtos.requests.PostClienteRequest;
 import com.beca.concessionaria.dtos.responses.PostClienteResponse;
-import com.beca.concessionaria.exceptions.ExceptionCliente;
 import com.beca.concessionaria.mappers.MapperClienteAtualizar;
 import com.beca.concessionaria.mappers.MapperClienteToClienteResponse;
 import com.beca.concessionaria.mappers.MapperPostClienteRequestToCliente;
@@ -32,10 +31,6 @@ public class ClienteService {
 
         clienteRepository.save(cliente);
 
-        if (cliente == null || cliente.getNome().trim().equals("")) {
-            throw new ExceptionCliente("Campos invalidos! preencha corretamente.");
-        }
-
         PostClienteResponse clienteResponse = mapperPostClienteResponse.toResponse(cliente);
 
         return clienteResponse;
@@ -48,10 +43,6 @@ public class ClienteService {
         mapperClienteAtualizar.atualizar(postClienteRequest, cliente);
 
         clienteRepository.save(cliente);
-
-        if (cliente == null || cliente.getNome().trim().equals("")) {
-            throw new ExceptionCliente("Invalido!");
-        }
 
         return mapperClienteToClienteResponse.toResponse(cliente);
     }

@@ -3,9 +3,7 @@ package com.beca.concessionaria.services;
 import com.beca.concessionaria.dminios.Cliente;
 import com.beca.concessionaria.dminios.Venda;
 import com.beca.concessionaria.dtos.requests.PostVendaRequest;
-import com.beca.concessionaria.dtos.responses.PostClienteResponse;
 import com.beca.concessionaria.dtos.responses.PostVendaResponse;
-import com.beca.concessionaria.exceptions.ExceptionCliente;
 import com.beca.concessionaria.mappers.MapperPostVendaRequestToVenda;
 import com.beca.concessionaria.mappers.MapperVendaAtualizar;
 import com.beca.concessionaria.mappers.MapperVendaToVendaResponse;
@@ -39,10 +37,6 @@ public class VendaService {
         cliente.setVenda(vendaObtida);
 
         Cliente salvando = clienteRepository.save(cliente);
-
-        if (venda == null || venda.getPreco().equals("")) {
-            throw new ExceptionCliente("Campos invalidos! preencha corretamente.");
-        }
 
         PostVendaResponse vendaResponse = mapperVendaToVendaResponse.toResponse(venda);
 
