@@ -2,7 +2,6 @@ package com.beca.concessionaria.dtos.requests;
 
 import lombok.Data;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -27,5 +26,6 @@ public class PostCarroRequest {
     @NotBlank
     @Size(min = 4, message = "O ano precisa ter 4 caracteres")
     @Size(max = 20, message = "Mais caracteres que o permitido")
-    private Integer ano;
+
+    private Long ano;
 }

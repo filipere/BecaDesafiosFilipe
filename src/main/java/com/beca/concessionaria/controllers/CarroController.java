@@ -1,9 +1,7 @@
 package com.beca.concessionaria.controllers;
 
-import com.beca.concessionaria.dminios.Carro;
 import com.beca.concessionaria.dtos.requests.PostCarroRequest;
 import com.beca.concessionaria.dtos.responses.PostCarroResponse;
-import com.beca.concessionaria.dtos.responses.PostClienteResponse;
 import com.beca.concessionaria.services.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

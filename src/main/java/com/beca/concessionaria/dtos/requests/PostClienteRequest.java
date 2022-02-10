@@ -20,5 +20,8 @@ public class PostClienteRequest {
     @Size(min = 10, message = "Caracteres insuficientes!")
     @Size(max = 50, message = "Mais caracteres que o permitido")
     private String email;
+
+    private Long telefone;
+
     private Long idVenda;
 }

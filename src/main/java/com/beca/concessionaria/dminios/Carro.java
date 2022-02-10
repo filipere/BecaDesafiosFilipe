@@ -22,5 +22,9 @@ public class Carro {
     @NonNull
     private String cor;
     @NonNull
-    private Integer ano;
+    private Long ano;
+
+    public Carro() {
+
+    }
 }

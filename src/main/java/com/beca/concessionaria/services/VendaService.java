@@ -1,6 +1,5 @@
 package com.beca.concessionaria.services;
 
-import com.beca.concessionaria.dminios.Cliente;
 import com.beca.concessionaria.dminios.Venda;
 import com.beca.concessionaria.dtos.requests.PostVendaRequest;
 import com.beca.concessionaria.dtos.responses.PostVendaResponse;

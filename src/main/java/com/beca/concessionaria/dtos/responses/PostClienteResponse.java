@@ -6,5 +6,5 @@ import lombok.Data;
 public class PostClienteResponse {
 
     private String nome;
-    private Long idVenda;
+    private Long telefone;
 }

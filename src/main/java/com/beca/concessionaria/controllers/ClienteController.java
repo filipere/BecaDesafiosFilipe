@@ -18,7 +18,7 @@ public class ClienteController {
     private final ClienteService clienteService;
 
     @PostMapping
-    public ResponseEntity<PostClienteResponse> adicionar (
+    public ResponseEntity<PostClienteResponse> adicionar(
             @RequestBody @Valid PostClienteRequest postClienteRequest) {
 
         PostClienteResponse postClienteResponse = clienteService.adicionar(postClienteRequest);
