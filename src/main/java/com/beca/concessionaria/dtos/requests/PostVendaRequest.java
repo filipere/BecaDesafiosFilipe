@@ -21,4 +21,3 @@ public class PostVendaRequest {
     @Positive
     private Integer quantidade;
 }
-
