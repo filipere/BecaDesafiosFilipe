@@ -10,6 +10,7 @@ import com.beca.concessionaria.mappers.MapperVendaToVendaResponse;
 import com.beca.concessionaria.repositories.ClienteRepository;
 import com.beca.concessionaria.repositories.VendaRepository;
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -26,22 +27,11 @@ public class VendaService {
     private final MapperVendaToVendaResponse mapperVendaToVendaResponse;
     private final MapperVendaAtualizar mapperAtualizar;
 
-    public PostVendaResponse adicionar(PostVendaRequest postVendaRequest) {
-
-        Venda vendaObtida = vendaRepository.getById(postVendaRequest.getId());
-
+    public PostVendaResponse adicionar(@NotNull PostVendaRequest postVendaRequest) {
         Venda venda = mapperPostVendaRequestToVenda.toModel(postVendaRequest);
-
-        Cliente cliente = new Cliente();
-        cliente.setId(postVendaRequest.getId());
-        cliente.setVenda(vendaObtida);
-
-        Cliente salvando = clienteRepository.save(cliente);
+        vendaRepository.save(venda);
 
         PostVendaResponse vendaResponse = mapperVendaToVendaResponse.toResponse(venda);
-
-        PostVendaResponse postVendaResponse = new PostVendaResponse();
-        postVendaResponse.setId(salvando.getId());
 
         return vendaResponse;
     }
