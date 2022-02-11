@@ -1,9 +1,13 @@
 package com.beca.concessionaria.services;
 
+import com.beca.concessionaria.dminios.Cliente;
 import com.beca.concessionaria.dminios.Venda;
+import com.beca.concessionaria.dtos.requests.PostClienteRequest;
 import com.beca.concessionaria.dtos.requests.PostVendaRequest;
+import com.beca.concessionaria.dtos.responses.PostClienteResponse;
 import com.beca.concessionaria.dtos.responses.PostVendaResponse;
 import com.beca.concessionaria.mappers.MapperPostVendaRequestToVenda;
+import com.beca.concessionaria.mappers.MapperPostVendaResponse;
 import com.beca.concessionaria.mappers.MapperVendaAtualizar;
 import com.beca.concessionaria.mappers.MapperVendaToVendaResponse;
 import com.beca.concessionaria.repositories.ClienteRepository;
@@ -25,12 +29,14 @@ public class VendaService {
     private final MapperPostVendaRequestToVenda mapperPostVendaRequestToVenda;
     private final MapperVendaToVendaResponse mapperVendaToVendaResponse;
     private final MapperVendaAtualizar mapperAtualizar;
+    private final MapperPostVendaResponse mapperPostVendaResponse;
 
     public PostVendaResponse adicionar(@NotNull PostVendaRequest postVendaRequest) {
         Venda venda = mapperPostVendaRequestToVenda.toModel(postVendaRequest);
+
         vendaRepository.save(venda);
 
-        PostVendaResponse vendaResponse = mapperVendaToVendaResponse.toResponse(venda);
+        PostVendaResponse vendaResponse = mapperPostVendaResponse.toResponse(venda);
 
         return vendaResponse;
     }

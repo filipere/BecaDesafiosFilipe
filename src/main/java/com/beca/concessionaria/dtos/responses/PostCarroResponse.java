@@ -6,7 +6,6 @@ import lombok.Data;
 public class PostCarroResponse {
 
     private String marca;
-    private String modelo;
     private String cor;
     private Long ano;
 }

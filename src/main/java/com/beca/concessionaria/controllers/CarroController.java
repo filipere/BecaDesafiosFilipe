@@ -3,6 +3,7 @@ package com.beca.concessionaria.controllers;
 import com.beca.concessionaria.dtos.requests.PostCarroRequest;
 import com.beca.concessionaria.dtos.responses.PostCarroResponse;
 import com.beca.concessionaria.services.CarroService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +12,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping( "/carro")
 public class CarroController {
 
     @Autowired
-    private CarroService carroService;
+    private final CarroService carroService;
 
     @PostMapping
     public ResponseEntity<PostCarroResponse> adicionar(

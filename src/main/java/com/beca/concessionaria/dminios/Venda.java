@@ -14,9 +14,14 @@ public class Venda {
     @NonNull
     private Long id;
     @NonNull
-    private Double preco;
+    private Double valor;
     @NonNull
-    private Integer quantidade;
+    private Long qtd;
+
     @OneToOne
-    private Carro Carro;
+    private Carro carro;
+
+    public Venda() {
+
+    }
 }

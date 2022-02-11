@@ -3,10 +3,7 @@ package com.beca.concessionaria.dminios;
 import lombok.Data;
 import lombok.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -14,14 +11,13 @@ public class Carro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NonNull
     private Long id;
     @NonNull
     private String marca;
     @NonNull
-    private String modelo;
-    @NonNull
     private String cor;
-    @NonNull
+
     private Long ano;
 
     public Carro() {

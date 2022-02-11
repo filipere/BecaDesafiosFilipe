@@ -8,8 +8,8 @@ import com.beca.concessionaria.mappers.MapperCarroToCarroResponse;
 import com.beca.concessionaria.mappers.MapperPostCarroRequestToCarro;
 import com.beca.concessionaria.mappers.MapperPostCarroResponse;
 import com.beca.concessionaria.repositories.CarroRepository;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class CarroService {
     private  final MapperCarroToCarroResponse mapperCarroToCarroResponse;
     private final MapperCarroAtualizar mapperCarroAtualizar;
 
-    public PostCarroResponse adicionar(@NonNull PostCarroRequest postCarroRequest) {
+    public PostCarroResponse adicionar(@NotNull PostCarroRequest postCarroRequest) {
         Carro carro = mapperPostCarroRequestToCarro.toModel(postCarroRequest);
 
         carroRepository.save(carro);

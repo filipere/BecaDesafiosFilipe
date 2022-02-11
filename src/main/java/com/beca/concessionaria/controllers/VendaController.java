@@ -4,7 +4,6 @@ import com.beca.concessionaria.dtos.requests.PostVendaRequest;
 import com.beca.concessionaria.dtos.responses.PostVendaResponse;
 import com.beca.concessionaria.services.VendaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +15,7 @@ import java.util.List;
 @RequestMapping( "/venda")
 public class VendaController {
 
-    @Autowired
-    private final   VendaService vendaService;
+    private final VendaService vendaService;
 
     @PostMapping
     public ResponseEntity<PostVendaResponse> adicionar(

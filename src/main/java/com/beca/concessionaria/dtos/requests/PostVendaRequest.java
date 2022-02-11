@@ -4,20 +4,19 @@ import lombok.Data;
 import lombok.NonNull;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Data
 public class PostVendaRequest {
 
-    private Long id;
+//    @NotBlank
+//    @NonNull
+//    @Positive
+    private Double valor;
 
-    @NotBlank
-    @NonNull
-    @Positive
-    private Double preco;
-
-    @NotBlank
-    @NonNull
-    @Positive
-    private Integer quantidade;
+//    @NotBlank
+//    @NotNull
+//    @Positive
+    private Long qtd;
 }
