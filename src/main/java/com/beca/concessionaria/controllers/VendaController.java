@@ -26,7 +26,7 @@ public class VendaController {
         return ResponseEntity.created(null).body(postVendaResponse);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public  ResponseEntity<PostVendaResponse> atualizar(@RequestBody PostVendaRequest postVendaRequest, @PathVariable Long id) {
         PostVendaResponse atualizar = vendaService.atualizar(postVendaRequest, id);
 
@@ -40,12 +40,12 @@ public class VendaController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
-    public ResponseEntity<PostVendaResponse> obter(Long id) {
-        PostVendaResponse obter= vendaService.obter(id);
-
-        return ResponseEntity.ok(obter);
-    }
+//    @GetMapping
+//    public ResponseEntity<PostVendaResponse> obter(Long id) {
+//        PostVendaResponse obter= vendaService.obter(id);
+//
+//        return ResponseEntity.ok(obter);
+//    }
 
     @GetMapping("/{listar}")
     public ResponseEntity<List<PostVendaResponse>> listar() {

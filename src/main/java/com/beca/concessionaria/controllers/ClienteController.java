@@ -26,7 +26,7 @@ public class ClienteController {
         return ResponseEntity.created(null).body(postClienteResponse);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public  ResponseEntity<PostClienteResponse> atualizar(
             @RequestBody PostClienteRequest postClienteRequest, @PathVariable Long id) {
 
@@ -35,12 +35,12 @@ public class ClienteController {
         return ResponseEntity.ok(atualizar);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PostClienteResponse> obter(@PathVariable Long id) {
-        PostClienteResponse postClienteResponse = clienteService.obter(id);
-
-        return ResponseEntity.ok(postClienteResponse);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<PostClienteResponse> obter(@PathVariable Long id) {
+//        PostClienteResponse postClienteResponse = clienteService.obter(id);
+//
+//        return ResponseEntity.ok(postClienteResponse);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> excluir(@PathVariable Long id) {

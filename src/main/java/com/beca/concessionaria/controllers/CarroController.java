@@ -28,7 +28,7 @@ public class CarroController {
         return ResponseEntity.created(null).body(postCarroResponse);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public  ResponseEntity<PostCarroResponse> atualizar(
             @RequestBody PostCarroRequest postCarroRequest, @PathVariable Long id) {
 
@@ -37,12 +37,12 @@ public class CarroController {
         return ResponseEntity.ok(atualizar);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PostCarroResponse> obter(@PathVariable Long id) {
-        PostCarroResponse postCarroResponse = carroService.obter(id);
-
-        return ResponseEntity.ok(postCarroResponse);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<PostCarroResponse> obter(@PathVariable Long id) {
+//        PostCarroResponse postCarroResponse = carroService.obter(id);
+//
+//        return ResponseEntity.ok(postCarroResponse);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> excluir(@PathVariable Long id) {
