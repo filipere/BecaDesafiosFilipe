@@ -35,12 +35,12 @@ public class ClienteController {
         return ResponseEntity.ok(atualizar);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<PostClienteResponse> obter(@PathVariable Long id) {
-//        PostClienteResponse postClienteResponse = clienteService.obter(id);
-//
-//        return ResponseEntity.ok(postClienteResponse);
-//    }
+    @GetMapping("/obter/{id}")
+    public ResponseEntity<PostClienteResponse> obter(@PathVariable Long id) {
+        PostClienteResponse postClienteResponse = clienteService.obter(id);
+
+        return ResponseEntity.ok(postClienteResponse);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> excluir(@PathVariable Long id) {

@@ -1,6 +1,7 @@
 package com.beca.concessionaria.controllers;
 
 import com.beca.concessionaria.dtos.requests.PostVendaRequest;
+import com.beca.concessionaria.dtos.responses.PostClienteResponse;
 import com.beca.concessionaria.dtos.responses.PostVendaResponse;
 import com.beca.concessionaria.services.VendaService;
 import lombok.RequiredArgsConstructor;
@@ -40,13 +41,12 @@ public class VendaController {
         return ResponseEntity.noContent().build();
     }
 
-//    @GetMapping
-//    public ResponseEntity<PostVendaResponse> obter(Long id) {
-//        PostVendaResponse obter= vendaService.obter(id);
-//
-//        return ResponseEntity.ok(obter);
-//    }
+    @GetMapping("/obter/{id}")
+    public ResponseEntity<PostVendaResponse> obter(@PathVariable Long id) {
+        PostVendaResponse postVendaResponse = vendaService.obter(id);
 
+        return ResponseEntity.ok(postVendaResponse);
+    }
     @GetMapping("/{listar}")
     public ResponseEntity<List<PostVendaResponse>> listar() {
         List<PostVendaResponse> mostrar = vendaService.mostrar();
